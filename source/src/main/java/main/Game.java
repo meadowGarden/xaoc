@@ -1,12 +1,12 @@
 package main;
 
-public class Game {
+public final class Game {
     private final GameWindow gameWindow;
     private final GamePanel gamePanel;
 
     public Game() {
-        gamePanel = new GamePanel();
-        gameWindow = new GameWindow(gamePanel);
-        gamePanel.requestFocus();
+        this.gamePanel = new GamePanel();
+        this.gameWindow = new GameWindow(gamePanel);
+        this.gamePanel.requestFocus();
     }
 }

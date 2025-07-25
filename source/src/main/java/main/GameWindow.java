@@ -3,24 +3,24 @@ package main;
 import javax.swing.*;
 import java.util.Objects;
 
-public class GameWindow {
+public final class GameWindow {
     private final JFrame jFrame;
 
     public GameWindow(final GamePanel gamePanel) {
-        jFrame = new JFrame();
-        jFrame.setTitle("game");
-        jFrame.setSize(1200, 600);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setResizable(false);
-        jFrame.setIconImage(Objects.requireNonNull(getJFrameIcon()).getImage());
-        jFrame.setLocationRelativeTo(null);
+        this.jFrame = new JFrame();
+        this.jFrame.setTitle("game");
+        this.jFrame.setSize(1200, 600);
+        this.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        this.jFrame.setResizable(false);
+        this.jFrame.setIconImage(Objects.requireNonNull(getJFrameIcon()).getImage());
+        this.jFrame.setLocationRelativeTo(null);
 
-        jFrame.add(gamePanel);
-        jFrame.setVisible(true);
+        this.jFrame.add(gamePanel);
+        this.jFrame.setVisible(true);
     }
 
     private ImageIcon getJFrameIcon() {
-        java.net.URL imgURL = getClass().getResource("/images/gipu.jpg");
+        final java.net.URL imgURL = getClass().getResource("/images/gipu.jpg");
 
         if (imgURL != null)
             return new ImageIcon(imgURL);

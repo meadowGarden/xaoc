@@ -5,7 +5,7 @@ import main.GamePanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyboardInputs implements KeyListener {
+public final class KeyboardInputs implements KeyListener {
     private final GamePanel gamePanel;
 
     public KeyboardInputs(final GamePanel gamePanel) {
@@ -13,17 +13,17 @@ public class KeyboardInputs implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(final KeyEvent e) {
 //        keysHandler(e);
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(final KeyEvent e) {
         keysHandler(e);
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(final KeyEvent e) {
 //        keysHandler(e);
     }
 
