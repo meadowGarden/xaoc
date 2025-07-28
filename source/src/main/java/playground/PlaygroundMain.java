@@ -1,13 +1,46 @@
 package playground;
 
-import java.util.Random;
+final class Counter {
+    private int count;
+
+    public Counter() {
+        this.count = 0;
+    }
+
+    public synchronized void increment() {
+        this.count++;
+    }
+
+    public int getCount() {
+        return this.count;
+
+    }
+}
 
 public class PlaygroundMain {
-    public static void main(String[] args) {
-        final Random random = new Random();
-        final int r = random.nextInt(255, 256);
-        final int g = random.nextInt(255, 256);
-        final int b = random.nextInt(254, 256);
-        System.out.printf("red: %d, greed: %d, blue: %d%n", r, g, b);
+    public static void main(String[] args) throws InterruptedException {
+
+        final Counter counter = new Counter();
+        final int target = 10_000_000;
+
+        long start = System.nanoTime();
+
+        final Runnable t1 = () -> {
+            for (int i = 0; i < target; i++)
+                counter.increment();
+        };
+
+        final Runnable t2 = () -> {
+            for (int i = 0; i < target; i++)
+                counter.increment();
+        };
+
+        t1.run();
+        t2.run();
+
+        long end = System.nanoTime();
+
+        System.out.println((end - start) / 1_000_000);
+        System.out.println(counter.getCount());
     }
 }
