@@ -11,12 +11,10 @@ public final class GamePanel extends JPanel {
     private final MouseInputs mouseInputs;
     private float xDelta = 100;
     private float yDelta = 100;
-    private float xDir = 0.1f;
-    private float yDir = 0.1f;
+    private float xDir = 1f;
+    private float yDir = 1f;
     private final Random random = new Random();
     private Color color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
-    private int frames = 0;
-    private long lastCheck = 0;
 
     public GamePanel() {
         addKeyListener(new KeyboardInputs(this));
@@ -38,7 +36,6 @@ public final class GamePanel extends JPanel {
         this.yDelta = y;
     }
 
-
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
@@ -46,19 +43,10 @@ public final class GamePanel extends JPanel {
         updateRectangle(g);
         g.setColor(color);
         g.fillRect((int)this.xDelta, (int)this.yDelta, 200, 50);
-        repaint();
 
-        frames++;
-        if (System.nanoTime() - lastCheck >= 1_000_000_000) {
-            lastCheck = System.nanoTime();
-            System.out.println(frames);
-            frames = 0;
-        }
     }
 
     private void updateRectangle(final Graphics g) {
-        final Random random = new Random();
-
         xDelta += xDir;
         if (xDelta > 1200 || xDelta < 0) {
             xDir *= -1;
