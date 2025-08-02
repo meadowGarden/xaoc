@@ -14,7 +14,6 @@ public final class KeyboardInputs implements KeyListener {
 
     @Override
     public void keyTyped(final KeyEvent e) {
-//        keysHandler(e);
     }
 
     @Override
@@ -24,7 +23,6 @@ public final class KeyboardInputs implements KeyListener {
 
     @Override
     public void keyReleased(final KeyEvent e) {
-//        keysHandler(e);
     }
 
     private void keysHandler(final KeyEvent e) {

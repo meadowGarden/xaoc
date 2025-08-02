@@ -3,24 +3,43 @@ package main;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 public final class GamePanel extends JPanel {
     private final MouseInputs mouseInputs;
     private float xDelta = 100;
     private float yDelta = 100;
-    private float xDir = 1f;
-    private float yDir = 1f;
-    private final Random random = new Random();
-    private Color color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+    private BufferedImage bufferedImage;
+    private BufferedImage playerSubImage;
 
     public GamePanel() {
-        addKeyListener(new KeyboardInputs(this));
+        setPanelSize();
+        importImage();
+        this.addKeyListener(new KeyboardInputs(this));
         this.mouseInputs = new MouseInputs(this);
-        addMouseListener(mouseInputs);
-        addMouseMotionListener(mouseInputs);
+        this.addMouseListener(mouseInputs);
+        this.addMouseMotionListener(mouseInputs);
+    }
+
+    private void importImage() {
+        final InputStream is = this.getClass().getResourceAsStream("/images/player_sprites.png");
+        try {
+            bufferedImage = ImageIO.read(is);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setPanelSize() {
+        final Dimension defaultSize = new Dimension(1280, 800);
+        this.setMinimumSize(defaultSize);
+        this.setPreferredSize(defaultSize);
+        this.setMaximumSize(defaultSize);
     }
 
     public void updateXDelta(final int value) {
@@ -31,36 +50,11 @@ public final class GamePanel extends JPanel {
         this.yDelta += value;
     }
 
-    public void setRectPosition(final int x, final int y) {
-        this.xDelta = x;
-        this.yDelta = y;
-    }
-
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
 
-        updateRectangle(g);
-        g.setColor(color);
-        g.fillRect((int)this.xDelta, (int)this.yDelta, 200, 50);
-
-    }
-
-    private void updateRectangle(final Graphics g) {
-        xDelta += xDir;
-        if (xDelta > 1200 || xDelta < 0) {
-            xDir *= -1;
-            color = getRandomColor();
-        }
-
-        yDelta += yDir;
-        if (yDelta > 600 || yDelta < 0) {
-            yDir *= -1;
-            color = getRandomColor();
-        }
-    }
-
-    private Color getRandomColor() {
-        return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+        playerSubImage = bufferedImage.getSubimage(1 * 64, 8 * 40, 64, 40);
+        g.drawImage(playerSubImage, (int)this.xDelta, (int)this.yDelta, 128, 80, null);
     }
 }

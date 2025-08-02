@@ -9,13 +9,13 @@ public final class GameWindow {
     public GameWindow(final GamePanel gamePanel) {
         this.jFrame = new JFrame();
         this.jFrame.setTitle("game");
-        this.jFrame.setSize(1200, 600);
         this.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        this.jFrame.setResizable(false);
+        this.jFrame.setResizable(false);
         this.jFrame.setIconImage(Objects.requireNonNull(getJFrameIcon()).getImage());
         this.jFrame.setLocationRelativeTo(null);
 
         this.jFrame.add(gamePanel);
+        this.jFrame.pack();
         this.jFrame.setVisible(true);
     }
 
